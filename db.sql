@@ -1,4 +1,8 @@
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS university;
+DROP TABLE IF EXISTS instructor;
+
+-- create tables
 
 CREATE TABLE user (
     id INTEGER PRIMARY KEY,
@@ -9,6 +13,20 @@ CREATE TABLE user (
     is_instructor INTEGER,
     instructor_id INTEGER
 );
+
+CREATE TABLE university (
+    id INTEGER PRIMARY KEY,
+    domain TEXT,
+    name TEXT
+);
+
+CREATE TABLE instructor (
+    id INTEGER PRIMARY KEY,
+    gpa REAL,
+    comments_active INTEGER
+);
+
+-- insert users
 
 INSERT INTO user (
     name,
@@ -21,7 +39,7 @@ INSERT INTO user (
     'Enes',
     'Gonultas',
     'Enes böo',
-    null,
+    1,
     0,
     null
 );
@@ -37,10 +55,49 @@ INSERT INTO user (
     'Osman',
     'Akkus',
     'Osman bio',
-    null,
+    1,
     0,
     null
 );
 
-SELECT * FROM user;
+-- insert universities
 
+INSERT INTO university (
+    domain,
+    name
+    ) VALUES (
+    'gtu',
+    'Gebze Teknik Üniversitesi'
+);
+
+INSERT INTO university (
+    domain,
+    name
+    ) VALUES (
+    'boun',
+    'Boğaziçi Üniversitesi'
+);
+
+INSERT INTO university (
+    domain,
+    name
+    ) VALUES (
+    'hacettepe',
+    'Hacettepe Üniversitesi'
+);
+
+INSERT INTO university (
+    domain,
+    name
+    ) VALUES (
+    'itu',
+    'İstanbul Teknik Üniversitesi'
+);
+
+INSERT INTO university (
+    domain,
+    name
+    ) VALUES (
+    'metu',
+    'Orta Doğu Teknik Üniversitesi'
+);

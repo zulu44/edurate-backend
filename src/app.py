@@ -25,11 +25,18 @@ application.add_route('/user', user_list)
 instructor_list = user.InstructorListResource(conn)
 application.add_route('/instructor', instructor_list)
 
+instructor_list_by_university = user.InstructorListByUniversityResource(conn)
+application.add_route('/instructor/{uni_domain}',
+    instructor_list_by_university)
+
 profile = user.ProfileResource(conn)
 application.add_route('/profile', profile)
 
+user_by_username = user.UserByUsernameResource(conn)
+application.add_route('/user/{username}', user_by_username)
+
 user = user.UserResource(conn)
-application.add_route('/user/{uid}', user)
+application.add_route('/user/id/{uid}', user)
 
 university_list = university.UniversityListResource(conn)
 application.add_route('/university', university_list)

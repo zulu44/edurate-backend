@@ -9,6 +9,7 @@ class LoginResource():
     def on_post(self, req, resp):
         data = req.bounded_stream.read()
         username = json.loads(data)['username']
+        print("LOGINNNNN:", username)
         user = self.user_repo.get_user_by_username(username)
         resp.set_cookie('edurate-user', str(user['id']))
 

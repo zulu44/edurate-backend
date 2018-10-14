@@ -1,3 +1,5 @@
+from repo import user
+
 class InstructorRepo():
     def __init__(self, database_connection):
         self.dbc = database_connection
@@ -33,3 +35,11 @@ class InstructorRepo():
             ' (user_id, instructor_id, comment) values (?, ?, ?);',
             (uid, ins_id, comment))
         self.dbc.commit()
+
+    def get_id(self, username):
+        c = self.dbc.cursor()
+        c.execute('SELECT id FROM user WHERE username=?;', (username,))
+        user_id = c.fetchone()[0]
+        return user_id
+
+

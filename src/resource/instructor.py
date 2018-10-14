@@ -8,15 +8,13 @@ class RateResource():
         self.repo = instructor.InstructorRepo(database_connection)
 
     def on_post(self, req, resp):
-        if 'edurate-user' in req.cookies:
-            uid = req.cookies['edurate-user']
-            data = req.bounded_stream.read()
-            rating_data = json.loads(data)
-            instructor_id = rating_data['instructor_id']
-            rating = rating_data['rating']
-            self.repo.set_rating(uid, instructor_id, rating)
-        else:
-            resp.status = falcon.HTTP_401
+        data = req.bounded_stream.read()
+        username = json.loads(data)['username']
+        uid = self.repo.get_id(username)
+        rating_data = json.loads(data)
+        instructor_id = rating_data['instructor_id']
+        rating = rating_data['rating']
+        self.repo.set_rating(uid, instructor_id, rating)
 
 
 class CommentResource():
@@ -24,14 +22,12 @@ class CommentResource():
         self.repo = instructor.InstructorRepo(database_connection)
 
     def on_post(self, req, resp):
-        if 'edurate-user' in req.cookies:
-            uid = req.cookies['edurate-user']
-            data = req.bounded_stream.read()
-            comment_data = json.loads(data)
-            instructor_id = comment_data['instructor_id']
-            comment = comment_data['comment']
-            self.repo.add_comment(uid, instructor_id, comment)
-        else:
-            resp.status = falcon.HTTP_401
 
+        data = req.bounded_stream.read()
+        username = json.loads(data)['username']
+        uid = self.repo.get_id(username)
+        comment_data = json.loads(data)
+        instructor_id = comment_data['instructor_id']
+        comment = comment_data['comment']
+        self.repo.add_comment(uid, instructor_id, comment)
 

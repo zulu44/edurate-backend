@@ -5,13 +5,28 @@ import json
 import cors
 from resource import user
 from resource import university
+from resource import login
+from resource import instructor
 
 conn = sqlite3.connect('../db/edurate.db')
 
-application = falcon.API(middleware=[cors.CORSComponent()])
+ro = falcon.response.ResponseOptions()
+ro.secure_cookies_by_default = False
+
+application = falcon.API(
+    middleware=[cors.CORSComponent()]
+)
+
+application.resp_options = ro
 
 user_list = user.UserListResource(conn)
 application.add_route('/user', user_list)
+
+instructor_list = user.InstructorListResource(conn)
+application.add_route('/instructor', instructor_list)
+
+profile = user.ProfileResource(conn)
+application.add_route('/profile', profile)
 
 user = user.UserResource(conn)
 application.add_route('/user/{uid}', user)
@@ -21,3 +36,12 @@ application.add_route('/university', university_list)
 
 university = university.UniversityResource(conn)
 application.add_route('/university/{uni_id}', university)
+
+login = login.LoginResource(conn)
+application.add_route('/login', login)
+
+rate = instructor.RateResource(conn)
+application.add_route('/rate', rate)
+
+comment = instructor.CommentResource(conn)
+application.add_route('/comment', comment)

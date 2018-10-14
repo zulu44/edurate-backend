@@ -17,6 +17,6 @@ class UniversityResource():
         self.repo = university.UniversityRepo(database_connection)
 
     def on_get(self, req, resp, uni_id):
-        data = self.repo.get_university(int(uni_id))
+        data = self.repo.get_university(uni_id)
 
         resp.body = json.dumps(data, ensure_ascii=False)

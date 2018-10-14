@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS instructor;
 
 CREATE TABLE user (
     id INTEGER PRIMARY KEY,
+    username TEXT,
     name TEXT,
     surname TEXT,
     bio TEXT,
@@ -22,20 +23,33 @@ CREATE TABLE university (
 
 CREATE TABLE instructor (
     id INTEGER PRIMARY KEY,
-    gpa REAL,
-    comments_active INTEGER
+    is_comments_active INTEGER
+);
+
+CREATE TABLE instructor_rating (
+    user_id INTEGER,
+    instructor_id INTEGER,
+    rating INTEGER
+);
+
+CREATE TABLE instructor_comment (
+    user_id INTEGER,
+    instructor_id INTEGER,
+    comment TEXT
 );
 
 -- insert users
 
 INSERT INTO user (
+    username,
     name,
     surname,
     bio,
     university_id,
     is_instructor,
     instructor_id
-    ) VALUES (
+) VALUES (
+    'admin',
     'Enes',
     'Gonultas',
     'Enes böo',
@@ -45,13 +59,15 @@ INSERT INTO user (
 );
 
 INSERT INTO user (
+    username,
     name,
     surname,
     bio,
     university_id,
     is_instructor,
     instructor_id
-    ) VALUES (
+) VALUES (
+    'king',
     'Osman',
     'Akkus',
     'Osman bio',
@@ -60,12 +76,30 @@ INSERT INTO user (
     null
 );
 
+INSERT INTO user (
+    username,
+    name,
+    surname,
+    bio,
+    university_id,
+    is_instructor,
+    instructor_id
+) VALUES (
+    'godfather',
+    'Yusuf Sinan',
+    'AKGÜL',
+    'Bilgisayarla Görme ve Bilgisayar Grafikleri, Tıbbı görüntüleme ve görüntü işlemleme, doğal dil işleme ve üretme, makina öğrenmesi, örüntü tanıma, endüstriyel muayene',
+    1,
+    1,
+    1
+);
+
 -- insert universities
 
 INSERT INTO university (
     domain,
     name
-    ) VALUES (
+) VALUES (
     'gtu',
     'Gebze Teknik Üniversitesi'
 );
@@ -73,7 +107,7 @@ INSERT INTO university (
 INSERT INTO university (
     domain,
     name
-    ) VALUES (
+) VALUES (
     'boun',
     'Boğaziçi Üniversitesi'
 );
@@ -81,7 +115,7 @@ INSERT INTO university (
 INSERT INTO university (
     domain,
     name
-    ) VALUES (
+) VALUES (
     'hacettepe',
     'Hacettepe Üniversitesi'
 );
@@ -89,7 +123,7 @@ INSERT INTO university (
 INSERT INTO university (
     domain,
     name
-    ) VALUES (
+) VALUES (
     'itu',
     'İstanbul Teknik Üniversitesi'
 );
@@ -97,7 +131,23 @@ INSERT INTO university (
 INSERT INTO university (
     domain,
     name
-    ) VALUES (
+) VALUES (
     'metu',
     'Orta Doğu Teknik Üniversitesi'
 );
+
+-- insert instructor related info
+
+INSERT INTO instructor (
+    is_comments_active
+) VALUES (
+    1
+);
+
+INSERT INTO instructor (
+    is_comments_active
+) VALUES (
+    0
+);
+
+SELECT * FROM user;

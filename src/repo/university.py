@@ -17,16 +17,13 @@ class UniversityRepo():
         return data
 
     def get_university(self, uni_id):
-        uni_id = int(uni_id)
         c = self.dbc.cursor()
-        result = c.execute('SELECT * FROM university;')
-        for (university_id, domain, name) in result:
-            if university_id == uni_id:
-                data = {
-                    'id': uni_id,
-                    'domain': domain,
-                    'name': name
-                }
-                break;
+        result = c.execute('SELECT * FROM university WHERE id=?;', (uni_id,))
+        (university_id, domain, name) = result.fetchone()
+        data = {
+            'id': university_id,
+            'domain': domain,
+            'name': name
+        }
 
         return data
